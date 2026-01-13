@@ -1,4 +1,4 @@
-package com.api.bank;
+package com.banking.ledger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
