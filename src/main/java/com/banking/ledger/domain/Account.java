@@ -14,6 +14,9 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
+    private String userId;
+
     @Column(nullable = false, unique = true)
     private String accountNumber;
 
@@ -39,7 +42,18 @@ public class Account {
     protected Account(){
     }
 
-    public Account(String accountNumber, AccountType accountType){
+    public Account(String userId, String accountNumber, AccountType accountType){
+
+            if (userId == null || userId.trim().isEmpty()) {
+                throw  new IllegalArgumentException("User ID is required");
+            }
+            if (accountNumber == null || accountNumber.trim().isEmpty()) {
+                throw new IllegalArgumentException("Account number is required");
+            }
+            if (accountType == null) {
+                throw new IllegalArgumentException("Account type is required");
+            }
+            this.userId = userId;
             this.accountNumber = accountNumber;
             this.accountType = accountType;
             this.balance = BigDecimal.ZERO;
@@ -78,9 +92,11 @@ public class Account {
 
 
     public UUID getId(){return id; }
+    public String getUserId(){return userId; }
     public String getAccountNumber(){return accountNumber; }
     public BigDecimal getBalance(){return balance; }
     public AccountType getAccountType(){return accountType; }
-    public AccountStatus getAccountStatus(){return status; }
-    public LocalDateTime getLocalDateTime(){return createdAt; }
+    public AccountStatus getStatus(){return status; }
+    public LocalDateTime getCreatedAt(){return createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
 }
