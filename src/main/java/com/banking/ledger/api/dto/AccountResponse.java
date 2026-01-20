@@ -30,6 +30,10 @@ public class AccountResponse {
         this.updatedAt = account.getUpdatedAt();
     }
 
+    public AccountResponse(UUID id, String userId, String accountNumber, AccountType accountType, BigDecimal balance, AccountStatus status, LocalDateTime createdAt) {
+    }
+
+
     public UUID getId() { return id; }
     public String getUserId() { return userId; }
     public String getAccountNumber() { return accountNumber; }
