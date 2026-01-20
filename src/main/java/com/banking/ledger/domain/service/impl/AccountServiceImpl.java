@@ -48,12 +48,19 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AccountResponse getAccountById(UUID id) {
-        return null;
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        return new  AccountResponse(account);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<AccountResponse> getAllAccounts() {
-        return null;
+        return accountRepository.findAll()
+                .stream()
+                .map(AccountResponse::new)
+                .toList();
     }
 }
